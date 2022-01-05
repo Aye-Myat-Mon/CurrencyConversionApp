@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.MainActivity">
+
+    <TextView
+        android:id="@+id/tv_tile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/str_title"
+        android:textColor="@color/carbon_c_300"
+        android:textSize="@dimen/font_size_24"
+        android:layout_margin="@dimen/margin_24"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/til_amount"
+        style="@style/TextInputLayoutStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:hintEnabled="false"
+        android:layout_margin="@dimen/margin_20"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_tile">
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/tiet_amount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/str_enter_amount"
+            android:inputType="number"
+            android:textColorHint="@color/carbon_c_100"
+            android:textSize="@dimen/font_size_15" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <Spinner
+        android:id="@+id/spinner"
+        android:layout_width="160dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="@dimen/margin_12"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="@id/til_amount"
+        app:layout_constraintTop_toBottomOf="@id/til_amount" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_currency"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_16"
+        android:layout_marginHorizontal="@dimen/margin_24"
+        app:layout_constraintTop_toBottomOf="@id/spinner"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
