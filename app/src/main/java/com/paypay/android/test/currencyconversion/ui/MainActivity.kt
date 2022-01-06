@@ -14,10 +14,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.paypay.android.test.currencyconversion.Constants
 import com.paypay.android.test.currencyconversion.R
+import com.paypay.android.test.currencyconversion.model.CurrencyModel
 import com.paypay.android.test.currencyconversion.model.Quote
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_main.*
-import timber.log.Timber
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
@@ -25,13 +25,15 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
 
     var amount = 1.0
     var currency = "USD"
+    lateinit var currencyModel: CurrencyModel
+    lateinit var currencyAdapter: CurrencyListAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         //setup recycler
-        val currencyAdapter = CurrencyListAdapter()
+        currencyAdapter = CurrencyListAdapter()
         rv_currency.layoutManager =
             LinearLayoutManager(this, RecyclerView.VERTICAL, false)
         rv_currency.isNestedScrollingEnabled = false
@@ -52,22 +54,10 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
 
         viewModel.currencyResult.observe(this, Observer {
             if (it == null) return@Observer
-            Timber.d("amm: currency result $it")
 
             if (it.success) {
-                val quoteArr = it.quotes.toString().replace("{", "").replace("}", "").split(",")
-                val quoteObjArr = ArrayList<Quote>()
-                for (item in quoteArr) {
-                    quoteObjArr.add(
-                        Quote(
-                            item.substring(1, 7),
-                            item.substring(9, item.length).toDouble() * amount
-                        )
-                    )
-                }
-
-                Timber.d("amm: quote obj $quoteObjArr")
-                currencyAdapter.setData(quoteObjArr)
+                currencyModel = it
+                convertCurrency()
             } else {
                 Toast.makeText(this, "API does not support!", Toast.LENGTH_LONG)
                     .show()
@@ -82,9 +72,10 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
 
         tiet_amount.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(editable: Editable) {
-                if (editable.toString() != "") {
+                val editableStr = editable.toString()
+                if (editableStr != "" && editableStr.matches("^[0-9.]*$".toRegex())) {
                     amount = editable.toString().toDouble()
-                    viewModel.getCurrency(currency)
+                    convertCurrency()
                 }
             }
 
@@ -94,6 +85,21 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
             override fun onTextChanged(charSequence: CharSequence, p1: Int, p2: Int, p3: Int) {
             }
         })
+    }
+
+    private fun convertCurrency() {
+        val quoteArr = currencyModel.quotes.toString().replace("{", "").replace("}", "").split(",")
+        val quoteObjArr = ArrayList<Quote>()
+        for (item in quoteArr) {
+            quoteObjArr.add(
+                Quote(
+                    item.substring(1, 7),
+                    item.substring(9, item.length).toDouble() * amount
+                )
+            )
+        }
+
+        currencyAdapter.setData(quoteObjArr)
     }
 
     override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {

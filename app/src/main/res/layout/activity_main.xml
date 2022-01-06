@@ -33,7 +33,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/str_enter_amount"
-            android:inputType="numberDecimal"
+            android:inputType="number"
             android:text="1"
             android:textColorHint="@color/carbon_c_100"
             android:textSize="@dimen/font_size_15" />
