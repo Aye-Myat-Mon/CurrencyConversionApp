@@ -1,6 +1,5 @@
 package com.paypay.android.test.currencyconversion.data.repository
 
-import androidx.lifecycle.liveData
 import com.paypay.android.test.currencyconversion.data.db.CurrencyDao
 import com.paypay.android.test.currencyconversion.data.services.CurrencyService
 import com.paypay.android.test.currencyconversion.model.CurrencyModel
@@ -31,8 +30,10 @@ class CurrencyRepository @Inject constructor(
             when(response) {
                 is Result.Success -> {
                     emit(Result.Success(response.data))
-                    currencyDao.deleteAll(response.data)
-                    currencyDao.insertAll(response.data)
+                    if (response.data.success) {
+                        currencyDao.deleteAll(response.data)
+                        currencyDao.insertAll(response.data)
+                    }
                 }
                 is Result.Error -> {
                     emit(Result.Error(response.exception))

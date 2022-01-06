@@ -6,6 +6,7 @@
         <entry key="app/src/main/res/drawable/bg_input_box.xml" value="0.41333333333333333" />
         <entry key="app/src/main/res/drawable/ic_chevron_down.xml" value="0.41333333333333333" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/row_currency_item.xml" value="0.33" />
       </map>
     </option>
   </component>

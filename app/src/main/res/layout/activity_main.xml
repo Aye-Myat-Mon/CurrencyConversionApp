@@ -33,11 +33,20 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/str_enter_amount"
-            android:inputType="number"
+            android:inputType="numberDecimal"
+            android:text="1"
             android:textColorHint="@color/carbon_c_100"
             android:textSize="@dimen/font_size_15" />
 
     </com.google.android.material.textfield.TextInputLayout>
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:background="@drawable/bg_input_box"
+        app:layout_constraintEnd_toEndOf="@id/spinner"
+        app:layout_constraintStart_toStartOf="@id/spinner"
+        app:layout_constraintTop_toTopOf="@id/spinner" />
 
     <Spinner
         android:id="@+id/spinner"
@@ -48,12 +57,23 @@
         app:layout_constraintEnd_toEndOf="@id/til_amount"
         app:layout_constraintTop_toBottomOf="@id/til_amount" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_currency"
+    <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_16"
-        android:layout_marginHorizontal="@dimen/margin_24"
-        app:layout_constraintTop_toBottomOf="@id/spinner"/>
+        android:layout_height="0dp"
+        android:layout_marginHorizontal="@dimen/margin_20"
+        android:layout_marginVertical="@dimen/margin_24"
+        app:cardCornerRadius="@dimen/margin_12"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/spinner"
+        app:strokeColor="@color/silver_s_20"
+        app:strokeWidth="0.8dp">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_currency"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:listitem="@layout/row_currency_item" />
+
+    </com.google.android.material.card.MaterialCardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
