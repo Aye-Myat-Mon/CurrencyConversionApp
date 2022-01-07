@@ -8,13 +8,21 @@ import com.google.gson.JsonObject
 /**
  * Created by ayemyatmon on 04,January,2022
  */
-@Entity(tableName = "currency_table")
+@Entity(tableName = "live_currency_table")
 data class CurrencyModel(
     @NonNull
     @PrimaryKey
     val source: String,
-    val success:Boolean,
+    val success: Boolean,
     val quotes: JsonObject
+)
+
+@Entity(tableName = "all_currency_table")
+data class CurrencyListModel(
+    @NonNull
+    @PrimaryKey
+    val success: Boolean,
+    val currencies: JsonObject
 )
 
 data class Quote(

@@ -8,21 +8,6 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
-    <color name="colorAccent">#FF14A1</color>
-    <color name="color_accent_700">#A40E68</color>
-    <color name="colorSecondary">#3394AB</color>
-    <color name="colorSecondary_100">#CCF5FF</color>
-    <color name="colorSecondary_500">#79E1FA</color>
-    <color name="colorSecondary_700">#3394AB</color>
-
-    <color name="color_red_100">#E63C39</color>
-    <color name="color_red_75">#FF9E99</color>
-    <color name="color_red_50">#FFCFCC</color>
-    <color name="color_red_25">#FFE7E6</color>
-
-    <color name="color_green_100">#00A653</color>
-    <color name="color_green_200">#007D49</color>
-
     <color name="silver_s_0">#FFFFFF</color>
     <color name="silver_s_10">#F7F9FA</color>
     <color name="silver_s_20">#F2F3F5</color>
@@ -34,26 +19,4 @@
     <color name="carbon_c_300">#363F4D</color>
     <color name="carbon_c_200">#475466</color>
     <color name="carbon_c_100">#5C6773</color>
-
-    <color name="color_yellow">#FFD918</color>
-    <color name="blue_b_300">#0043A1</color>
-    <color name="blue_b_100">#0065F2</color>
-    <color name="blue_b_50">#8CC4FF</color>
-    <color name="blue_b_25">#D9ECFF</color>
-    <color name="yellow_y_300">#805500</color>
-    <color name="yellow_50">#FFEA80</color>
-    <color name="carbon_c_75">#7A8A99</color>
-    <color name="carbon_c_50">#A3B8CC</color>
-
-    <color name="main_700">#EB9E00</color>
-    <color name="main_500">#FFD918</color>
-    <color name="main_100">#FFEF9F</color>
-
-    <color name="yellow_y_200">#CC8800</color>
-
-    <color name="wechat_green">#1AAD19</color>
-    <color name="phone_blue">#8CC4FF</color>
-    <color name="phone_text_blue">#0043A1</color>
-
-    <color name="color_transparent">#00000000</color>
 </resources>
