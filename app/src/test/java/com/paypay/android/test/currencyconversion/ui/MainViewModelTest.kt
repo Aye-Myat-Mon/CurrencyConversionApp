@@ -1,39 +1,42 @@
 package com.paypay.android.test.currencyconversion.ui
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import com.nhaarman.mockitokotlin2.mock
-import com.nhaarman.mockitokotlin2.verify
-import com.paypay.android.test.currencyconversion.Constants
+import com.paypay.android.test.currencyconversion.MainCoroutineScopeRule
 import com.paypay.android.test.currencyconversion.TestData
 import com.paypay.android.test.currencyconversion.data.repository.CurrencyRepository
 import com.paypay.android.test.currencyconversion.model.CurrencyListModel
+import com.paypay.android.test.currencyconversion.model.CurrencyModel
+import com.paypay.android.test.currencyconversion.utils.Result
+import io.mockk.mockk
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.ObsoleteCoroutinesApi
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.newSingleThreadContext
+import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.resetMain
-import kotlinx.coroutines.test.runBlockingTest
 import kotlinx.coroutines.test.setMain
 import org.junit.*
 import org.junit.runner.RunWith
-import org.junit.runners.JUnit4
-import org.mockito.Mockito
+import org.mockito.junit.MockitoJUnitRunner
 
 /**
  * Created by ayemyatmon on 07,January,2022
  */
-@ObsoleteCoroutinesApi
-@RunWith(JUnit4::class)
+@ExperimentalCoroutinesApi
+@RunWith(MockitoJUnitRunner::class)
 class MainViewModelTest {
 
     private val mainThreadSurrogate = newSingleThreadContext("UI thread")
 
-    private val currencyRepository: CurrencyRepository = mock()
+    private val currencyRepository = mockk<CurrencyRepository>()
 
     private lateinit var viewModel: MainViewModel
 
     @Rule
     @JvmField
     val instantTaskExecutorRule = InstantTaskExecutorRule()
+
+    @get:Rule
+    val coroutineScope = MainCoroutineScopeRule()
 
     @Before
     fun setUp() {
@@ -42,12 +45,11 @@ class MainViewModelTest {
     }
 
     @Test
-    fun testGetListCurrency_Success() = runBlockingTest {
-        Mockito.`when`(currencyRepository.getListCurrency(Constants.API_KEY))
-            .thenReturn(TestData.getCurrencyListSuccess())
+    fun testGetListCurrency_Success() = runBlocking {
+        /*Mockito.`when`(currencyRepository.getListCurrency(Constants.API_KEY).toList())
+            .thenReturn(TestData.getCurrencyListSuccess())*/
 
         viewModel.getListCurrency()
-        verify(currencyRepository).getListCurrency(Constants.API_KEY)
 
         viewModel.currencyListResult.observeForever {
             if (viewModel.currencyListResult.value != null) {
@@ -55,21 +57,22 @@ class MainViewModelTest {
                     it.success,
                     it.currencies
                 )
-                Assert.assertEquals(result, TestData.currencyListObj)
+                Assert.assertEquals(result, TestData.getCurrencyListObject())
 
                 val currencyListObj = viewModel.currencyListResult.value?.currencies
                 Assert.assertNotNull(currencyListObj)
+                Assert.assertEquals(Result.Success::class.java, result)
+                Assert.assertEquals(CurrencyListModel::class.java, currencyListObj)
             }
         }
     }
 
     @Test
-    fun testGetLiveCurrency_Success() = runBlockingTest {
-        Mockito.`when`(currencyRepository.getLiveCurrency("USD", Constants.API_KEY))
-            .thenReturn(TestData.getCurrencyLiveSuccess())
+    fun testGetLiveCurrency_Success() = runBlocking {
+        /*Mockito.`when`(currencyRepository.getLiveCurrency("USD", Constants.API_KEY))
+            .thenReturn(TestData.getCurrencyLiveSuccess())*/
 
         viewModel.getLiveCurrency("USD")
-        verify(currencyRepository).getLiveCurrency("USD", Constants.API_KEY)
 
         viewModel.currencyLiveResult.observeForever {
             if (viewModel.currencyLiveResult.value != null) {
@@ -77,10 +80,12 @@ class MainViewModelTest {
                     it.success,
                     it.quotes
                 )
-                Assert.assertEquals(result, TestData.currencyObj)
+                Assert.assertEquals(result, TestData.getCurrencyLiveObject())
 
                 val currencyLiveObj = viewModel.currencyLiveResult.value?.quotes
                 Assert.assertNotNull(currencyLiveObj)
+                Assert.assertEquals(Result.Success::class.java, result)
+                Assert.assertEquals(CurrencyModel::class.java, currencyLiveObj)
             }
         }
     }
