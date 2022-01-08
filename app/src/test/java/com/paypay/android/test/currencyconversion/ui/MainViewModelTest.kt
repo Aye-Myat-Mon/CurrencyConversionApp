@@ -46,9 +46,6 @@ class MainViewModelTest {
 
     @Test
     fun testGetListCurrency_Success() = runBlocking {
-        /*Mockito.`when`(currencyRepository.getListCurrency(Constants.API_KEY).toList())
-            .thenReturn(TestData.getCurrencyListSuccess())*/
-
         viewModel.getListCurrency()
 
         viewModel.currencyListResult.observeForever {
@@ -69,9 +66,6 @@ class MainViewModelTest {
 
     @Test
     fun testGetLiveCurrency_Success() = runBlocking {
-        /*Mockito.`when`(currencyRepository.getLiveCurrency("USD", Constants.API_KEY))
-            .thenReturn(TestData.getCurrencyLiveSuccess())*/
-
         viewModel.getLiveCurrency("USD")
 
         viewModel.currencyLiveResult.observeForever {

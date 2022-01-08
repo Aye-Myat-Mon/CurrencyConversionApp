@@ -3,13 +3,11 @@ package com.paypay.android.test.currencyconversion
 import com.google.gson.JsonParser
 import com.paypay.android.test.currencyconversion.model.CurrencyListModel
 import com.paypay.android.test.currencyconversion.model.CurrencyModel
-import com.paypay.android.test.currencyconversion.utils.Result
-import retrofit2.Response
 
 /**
  * Created by ayemyatmon on 08,January,2022
  */
-object TestData {
+object TestCurrencyData {
     val quoteStr =
         "{\"USDAED\":3.67296,\"USDAFN\":104.910141,\"USDALL\":107.404999,\"USDAMD\":483.532139,\"USDANG\":1.804153}"
     val currencyStr =
@@ -41,24 +39,11 @@ object TestData {
         currencies = JsonParser().parse(currencyStr).asJsonObject
     )
 
-    fun getCurrencyLiveSuccessResponse(): Response<CurrencyModel> = Response.success(currencyObj)
-
     fun getCurrencyLiveObject(): CurrencyModel {
         return currencyObj
     }
 
-    fun getCurrencyLiveSuccess(): Result<CurrencyModel> {
-        return Result.Success(currencyObj)
-    }
-
-    fun getCurrencyListSuccessResponse(): Response<CurrencyListModel> =
-        Response.success(currencyListObj)
-
     fun getCurrencyListObject(): CurrencyListModel {
         return currencyListObj
-    }
-
-    fun getCurrencyListSuccess(): Result<CurrencyListModel> {
-        return Result.Success(currencyListObj)
     }
 }
